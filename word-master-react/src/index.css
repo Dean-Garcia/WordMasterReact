@@ -1,0 +1,371 @@
+:root{
+  --background: linear-gradient(#141e30, #243b55);
+  --textColor: white;
+  --menuTextColor: white;
+  --displayTextColor: white;
+  --keyColor: lightgrey;
+  --borderColor: #E6E6E6;
+  --displayMessageBackground: black;
+  --boxColorPresent: gold;
+  --boxColorCorrect: green;
+  --boxColorWrong: grey;
+  --menuBorderColor: black;
+}
+
+body{
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  height: 100vh;
+  width: 100vw;
+  background: var(--background, linear-gradient(#141e30, #243b55));
+  align-items: center;
+  justify-content: center;
+}
+
+/*#region SETTINGS*/
+
+#displayMessage {
+  display: none;
+  z-index: 5;
+  position: absolute;
+  top: 50px;
+  justify-content: center;
+  align-self: center;
+  min-height: 50px;
+  min-width: 400px;
+  height: auto;
+  width: auto;
+  line-height: 50px;
+  background-color: var(--displayMessageBackground, black);
+  color: var(--displayTextColor, white);
+  font-size: 2rem;
+  text-align: center;
+  overflow: auto;
+}
+
+#seedWindow{
+  display: none;
+  z-index: 5;
+  position: absolute;
+  top: 150px;
+  justify-content: center;
+  align-self: center;
+  height: 300px;
+  width: 400px;
+  line-height: 50px;
+  background-color: var(--displayMessageBackground, black);
+  color: var(--menuTextColor, white);
+  font-size: 2rem;
+  text-align: center;
+  border: 2px solid var(--menuBorderColor, black);
+}
+
+#settingsForm{
+  display: flex;
+  flex-flow: column;
+  justify-content: left;
+  align-items: center;
+  text-align: center;
+  padding-top: 20px;
+}
+
+#settingsWindow{
+  display: none;
+  z-index: 6;
+  position: absolute;
+  top: 150px;
+  justify-content: center;
+  align-self: center;
+  height: 400px;
+  width: 400px;
+  line-height: 50px;
+  background-color:  var(--displayMessageBackground, black);
+  color: var(--menuTextColor, white);
+  font-size: 2rem;
+  text-align: center;
+  border: 2px solid var(--menuBorderColor, black);
+}
+
+#statsWindow{
+  display: none;
+  flex-flow: column;
+  z-index: 6;
+  position: absolute;
+  top: 150px;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  width: 450px;
+  background-color:  var(--displayMessageBackground, black);
+  color: var(--menuTextColor, white);
+  font-size: 2rem;
+  text-align: center;
+  border: 2px solid var(--menuBorderColor, black);
+}
+
+#graphContainer{
+  height: 500px;
+  width: 400px;
+  border: 2px solid white;
+}
+
+canvas{
+  z-index: 7;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color:  var(--displayMessageBackground, black);
+  color: var(--menuTextColor, white);
+  font-size: 3rem;
+  /* text-align: center; */
+  /* border: 2px solid white; */
+}
+
+#streakDiv, #winLoss {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  color: white;
+  text-align: center;
+  justify-self: center;
+  line-height: 100px;
+  font-size: 3rem;
+  color: var(--menuTextColor, white);
+  /* border: 2px solid white; */
+}
+
+/* slider */
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* slider end */
+
+#seedWindow.show{
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+}
+
+#displayMessage.show {
+  display: flex;
+}
+
+#settingsWindow.show {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+}
+
+#statsWindow.show{
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+}
+
+/*#endregion*/
+
+.boardContainer{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 600px;
+  width: 450px;
+  background-color: var(--background, linear-gradient(#141e30, #243b55));
+}
+
+#keyboardContainer{
+  height: 400px;
+  width: 800px;
+  background-color: var(--background, linear-gradient(#141e30, #243b55));
+}
+
+.lineContainer{
+/*   border: 2px solid black; */
+/*   background-color: blue; */
+  display: flex;
+  height: 90px;
+  width: 450px;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.box{
+  z-index: 0;
+  height: 80px;
+  width: 80px;
+  background-color: var(--background, linear-gradient(#141e30, #243b55));
+  border: 2px solid #E6E6E6;
+  font-size: 4rem;
+  text-align: center;
+  color: var(--textColor, white);
+}
+
+.keyboard{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background, linear-gradient(#141e30, #243b55));
+  height: 300px;
+  width: 800px;
+  gap: 20px;
+}
+
+.row{
+  display: flex;
+/*   border: 2px solid black; */
+  width: 800px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.key {
+  height: 80px;
+  width: 80px;
+  background-color: lightgrey;
+  font-size: 4rem;
+  text-align: center;
+  color: black;
+  border-radius: 20px;
+
+}
+
+.bigKey{
+  height: 80px;
+  width: 160px;
+  background-color: lightgrey;
+  font-size: 3.5rem;
+  line-height: 80px;
+  text-align: center;
+  color: black;
+  border-radius: 20px;
+}
+
+.bigKey:hover , .key:hover{
+  background-color: purple;
+  cursor: pointer;
+}
+
+/* Animations */
+.flipLetter {
+  perspective: 1000px;
+  animation-name: flipLetter;
+  animation-duration: .6s;
+  transform: rotateX(0deg);
+}
+
+.letterPop {
+  animation-name: letterPop;
+  animation-duration: .2s;
+}
+
+.shakeWord{
+  animation: .1s linear 0s 5 alternate slidein;
+}
+
+@keyframes slidein{
+  from {
+    margin-left: 10px;
+    width: 300%;
+  }
+
+  to  {
+    margin-right: 10px;
+    width: 100%;
+  }
+}
+
+@keyframes flipLetter{
+  50%{
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes letterPop{
+  50%{
+    transform: scale(1.1);
+  }
+}
+
+#buttonContainer{
+  height: 50px;
+  width: 100%;
+  /* border: 2px solid white; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button{
+  height: 40px;
+  width: 80px;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+}
