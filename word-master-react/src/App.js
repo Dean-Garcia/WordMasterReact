@@ -8,20 +8,23 @@ function App() {
   const [keyValue, setKeyValue] = useState('');
 
   const [currentLineValue, setCurrentLineValue] = useState(0);
-  const [currentBoxValue, setCurrentBoxValue] = useState(-1);
+  const [currentBoxValue, setCurrentBoxValue] = useState(0);
 
-  const [board, setBoard] = useState(
-    [
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', '']
-    ])
+  const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+
+  const [board, setBoard] = useState([
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', '']
+  ]);
 
   const getKeyPress = (e) => {
-    setKeyValue(e.key);
+    if (ALPHABET.includes(e.key)) {
+      setKeyValue(e.key);
+    }
   }
 
   const getNextBox = () => {
@@ -35,9 +38,13 @@ function App() {
   }
 
   useEffect(() => {
-    board[currentLineValue][currentBoxValue] = keyValue;
-    setBoard(board);
-    getNextBox();
+    console.log('test');
+    if (!(keyValue == '')) {
+      board[currentLineValue][currentBoxValue] = keyValue;
+      setBoard(board);
+      getNextBox();
+      setKeyValue('');
+    }
   }, [keyValue])
 
   useEffect(() => {
