@@ -1,9 +1,18 @@
 import Line from './Line';
 
-const Board = ({ board, keyValue, lineNum = 6, currentLineValue, currentBoxValue }) => {
+const Board = ({ board, keyValue, lineNum, currentLineValue, currentBoxValue }) => {
     let lines = [];
     for (let i = 0; i < lineNum; i++) {
-        lines.push(<Line board={board} key={i} line={i} value={keyValue} currentLineValue={currentLineValue} currentBoxValue={currentBoxValue} />)
+        board.push([]);
+        lines.push(<Line
+            board={board}
+            key={i}
+            line={i}
+            value={keyValue}
+            // wordNum={wordNum}
+            currentLineValue={currentLineValue}
+            currentBoxValue={currentBoxValue}
+        />)
     }
 
     return (
@@ -14,6 +23,3 @@ const Board = ({ board, keyValue, lineNum = 6, currentLineValue, currentBoxValue
 }
 
 export default Board
-
-
-//App(key = a) -> Board -> Lines -> Boxes
