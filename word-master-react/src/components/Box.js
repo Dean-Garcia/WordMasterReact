@@ -5,7 +5,6 @@ import React from 'react';
 const Box = ({ board, line, box, value, currentLineValue, currentBoxValue }) => {
     const [boxValue, setBoxValue] = useState(value);
 
-    // const handleKeyPress = (e) => {setBoxValue(e.key)};
     const handleClick = () => {
         currentLineValue(line);
         currentBoxValue(box);
@@ -19,6 +18,5 @@ const Box = ({ board, line, box, value, currentLineValue, currentBoxValue }) => 
         </div>
     )
 }
-
 
 export default Box
