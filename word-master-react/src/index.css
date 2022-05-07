@@ -1,4 +1,4 @@
-:root{
+:root {
   --background: linear-gradient(#141e30, #243b55);
   --textColor: white;
   --menuTextColor: white;
@@ -12,7 +12,18 @@
   --menuBorderColor: black;
 }
 
-body{
+body {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  height: 100vh;
+  width: 100vw;
+  background: var(--background, linear-gradient(#141e30, #243b55));
+  align-items: center;
+  justify-content: center;
+}
+
+.appContainer {
   display: flex;
   flex-flow: column;
   gap: 10px;
@@ -44,7 +55,7 @@ body{
   overflow: auto;
 }
 
-#seedWindow{
+#seedWindow {
   display: none;
   z-index: 5;
   position: absolute;
@@ -61,7 +72,7 @@ body{
   border: 2px solid var(--menuBorderColor, black);
 }
 
-#settingsForm{
+#settingsForm {
   display: flex;
   flex-flow: column;
   justify-content: left;
@@ -70,7 +81,7 @@ body{
   padding-top: 20px;
 }
 
-#settingsWindow{
+#settingsWindow {
   display: none;
   z-index: 6;
   position: absolute;
@@ -80,14 +91,14 @@ body{
   height: 400px;
   width: 400px;
   line-height: 50px;
-  background-color:  var(--displayMessageBackground, black);
+  background-color: var(--displayMessageBackground, black);
   color: var(--menuTextColor, white);
   font-size: 2rem;
   text-align: center;
   border: 2px solid var(--menuBorderColor, black);
 }
 
-#statsWindow{
+#statsWindow {
   display: none;
   flex-flow: column;
   z-index: 6;
@@ -97,32 +108,33 @@ body{
   align-items: center;
   height: 600px;
   width: 450px;
-  background-color:  var(--displayMessageBackground, black);
+  background-color: var(--displayMessageBackground, black);
   color: var(--menuTextColor, white);
   font-size: 2rem;
   text-align: center;
   border: 2px solid var(--menuBorderColor, black);
 }
 
-#graphContainer{
+#graphContainer {
   height: 500px;
   width: 400px;
   border: 2px solid white;
 }
 
-canvas{
+canvas {
   z-index: 7;
   position: relative;
   height: 100%;
   width: 100%;
-  background-color:  var(--displayMessageBackground, black);
+  background-color: var(--displayMessageBackground, black);
   color: var(--menuTextColor, white);
   font-size: 3rem;
   /* text-align: center; */
   /* border: 2px solid white; */
 }
 
-#streakDiv, #winLoss {
+#streakDiv,
+#winLoss {
   position: relative;
   height: 100px;
   width: 100%;
@@ -176,15 +188,15 @@ canvas{
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #2196F3;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -201,7 +213,7 @@ input:checked + .slider:before {
 
 /* slider end */
 
-#seedWindow.show{
+#seedWindow.show {
   display: flex;
   flex-flow: column;
   gap: 5px;
@@ -217,7 +229,7 @@ input:checked + .slider:before {
   gap: 5px;
 }
 
-#statsWindow.show{
+#statsWindow.show {
   display: flex;
   flex-flow: column;
   gap: 5px;
@@ -225,7 +237,7 @@ input:checked + .slider:before {
 
 /*#endregion*/
 
-.boardContainer{
+.boardContainer {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -236,15 +248,9 @@ input:checked + .slider:before {
   background-color: var(--background, linear-gradient(#141e30, #243b55));
 }
 
-#keyboardContainer{
-  height: 400px;
-  width: 800px;
-  background-color: var(--background, linear-gradient(#141e30, #243b55));
-}
-
-.lineContainer{
-/*   border: 2px solid black; */
-/*   background-color: blue; */
+.lineContainer {
+  /*   border: 2px solid black; */
+  /*   background-color: blue; */
   display: flex;
   height: 90px;
   width: 450px;
@@ -253,7 +259,7 @@ input:checked + .slider:before {
   align-items: center;
 }
 
-.box{
+.box {
   z-index: 0;
   height: 80px;
   width: 80px;
@@ -264,7 +270,7 @@ input:checked + .slider:before {
   color: var(--textColor, white);
 }
 
-.keyboard{
+.keyboard {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -275,9 +281,9 @@ input:checked + .slider:before {
   gap: 20px;
 }
 
-.row{
+.row {
   display: flex;
-/*   border: 2px solid black; */
+  /*   border: 2px solid black; */
   width: 800px;
   height: 80px;
   align-items: center;
@@ -296,7 +302,7 @@ input:checked + .slider:before {
 
 }
 
-.bigKey{
+.bigKey {
   height: 80px;
   width: 160px;
   background-color: lightgrey;
@@ -307,7 +313,8 @@ input:checked + .slider:before {
   border-radius: 20px;
 }
 
-.bigKey:hover , .key:hover{
+.bigKey:hover,
+.key:hover {
   background-color: purple;
   cursor: pointer;
 }
@@ -325,35 +332,35 @@ input:checked + .slider:before {
   animation-duration: .2s;
 }
 
-.shakeWord{
+.shakeWord {
   animation: .1s linear 0s 5 alternate slidein;
 }
 
-@keyframes slidein{
+@keyframes slidein {
   from {
     margin-left: 10px;
     width: 300%;
   }
 
-  to  {
+  to {
     margin-right: 10px;
     width: 100%;
   }
 }
 
-@keyframes flipLetter{
-  50%{
+@keyframes flipLetter {
+  50% {
     transform: rotateX(90deg);
   }
 }
 
-@keyframes letterPop{
-  50%{
+@keyframes letterPop {
+  50% {
     transform: scale(1.1);
   }
 }
 
-#buttonContainer{
+#buttonContainer {
   height: 50px;
   width: 100%;
   /* border: 2px solid white; */
@@ -362,7 +369,7 @@ input:checked + .slider:before {
   justify-content: center;
 }
 
-button{
+button {
   height: 40px;
   width: 80px;
   text-align: center;

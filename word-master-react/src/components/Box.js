@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 
-const Box = ({ board, line, box, value, currentLineValue, currentBoxValue }) => {
+const Box = ({ board, line, box, value }) => {
     const [boxValue, setBoxValue] = useState(value);
 
     const handleClick = () => {
-        currentLineValue(line);
-        currentBoxValue(box);
-        console.log(`line ${line} box ${box}`)
+        //handle click firing??
     };
 
     return (

@@ -23,7 +23,7 @@ const Keyboard = ({ setKeyValue }) => {
   bottomRowKeys.push(<Key className='bigKey' setKeyValue={setKeyValue} key={'<-'} id={'<-'} />);
 
   return (
-    <div id='keyboard' className="keyboardContainer">
+    <div id='keyboard' className='keyboard'>
       <div id='topRow' className='row'>{topRowKeys}</div>
       <div id='middleRow' className='row'>{middleRowKeys}</div>
       <div id='bottomRow' className='row'>{bottomRowKeys}</div>

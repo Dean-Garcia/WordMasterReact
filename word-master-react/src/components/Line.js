@@ -1,10 +1,10 @@
 import Box from './Box'
 
-const Line = ({ board, line, value, wordNum, currentLineValue, currentBoxValue }) => {
+const Line = ({ board, line, value, boxNum }) => {
 
 
     let boxes = [];
-    for (let i = 0; i < wordNum; i++) {
+    for (let i = 0; i < boxNum; i++) {
         board[line].push('');
         boxes.push(<Box
             board={board}
@@ -12,8 +12,6 @@ const Line = ({ board, line, value, wordNum, currentLineValue, currentBoxValue }
             box={i}
             key={i}
             value={value}
-            currentLineValue={currentLineValue}
-            currentBoxValue={currentBoxValue}
         />)
     }
 
