@@ -1,6 +1,6 @@
 import Line from './Line';
 
-const Board = ({ board, keyValue, lineNum, boxNum }) => {
+const Board = ({ board, lineNum, boxNum, dispatch, state, word }) => {
     let lines = [];
     for (let i = 0; i < lineNum; i++) {
         board.push([]);
@@ -9,7 +9,9 @@ const Board = ({ board, keyValue, lineNum, boxNum }) => {
             key={i}
             line={i}
             boxNum={boxNum}
-            value={keyValue}
+            dispatch={dispatch}
+            state={state}
+            word={word}
         />)
     }
 

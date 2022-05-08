@@ -6,28 +6,39 @@ const generateWord = () => {
   return 'WRECK';
 }
 
-const ACTIONS = {
+export const ACTIONS = {
   NEXT_BOX: 'nextBox',
   PREVIOUS_BOX: 'previousBox',
   NEXT_LINE: 'nextLine',
+  ANIMATION: 'animations',
+  HINTS: 'hints',
+  WIN: 'win',
+  TEST: 'test'
 }
 
 const BACKSPACE = 'BACKSPACE';
 const ENTER = 'ENTER';
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-const reducer = (state, action) => {
+export const reducer = (state, { type, payload }) => {
   let newState = state;
-  switch (action.type) {
+  switch (type) {
+    case ACTIONS.TEST:
+      console.log('dispatch test');
+      return state;
     case ACTIONS.NEXT_BOX:
-      if (action.payload) {
+      if (payload) {
         newState.currentBox = 0;
         newState.currentLine = state.currentLine + 1;
+        newState.animation = false;
         return newState;
       }
       else if (state.currentLine > state.lineNum - 1 || state.currentBox === state.boxNum) {
+        console.log('2nd');
         return state;
       }
       else {
+        console.log('3rd');
         newState.currentBox++;
         return newState;
       }
@@ -37,6 +48,10 @@ const reducer = (state, action) => {
       return newState;
     case ACTIONS.PREVIOUS_BOX:
       return { ...newState, currentBox: state.currentBox - 1 };
+    case ACTIONS.HINTS:
+      return { ...newState, animation: true };
+    case ACTIONS.WIN:
+      return { ...newState, animation: true };
     default:
       return state;
   }
@@ -47,12 +62,10 @@ function App() {
   const [boxNum, setBoxNum] = useState(5);
 
   const [state, dispatch] = useReducer(reducer, {
-    currentLine: 0, currentBox: 0, lineNum: 6, boxNum: 5
+    currentLine: 0, currentBox: 0, lineNum: 6, boxNum: 5, animation: false
   });
 
   const [keyValue, setKeyValue] = useState('');
-
-  const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   const [board, setBoard] = useState([]);
 
@@ -65,18 +78,6 @@ function App() {
     }
   }
 
-  const submitWord = () => {
-    if (checkWord()) {
-      // flip green
-      console.log('you win!');
-    }
-    else {
-      // flip clues
-      // showHints();
-      console.log('that wasnt the word');
-    }
-  }
-
   const checkWord = () => {
     let currentWord =
       board[state.currentLine][0] +
@@ -84,6 +85,7 @@ function App() {
       board[state.currentLine][2] +
       board[state.currentLine][3] +
       board[state.currentLine][4];
+    console.log(currentWord, word);
     if (currentWord === word) {
       return true;
     }
@@ -94,8 +96,16 @@ function App() {
 
   useEffect(() => {
     if (keyValue !== '') { // check to ensure no second fires
-      if (keyValue === ENTER && state.currentBox === state.boxNum) {
-        dispatch({ type: ACTIONS.NEXT_BOX, payload: true });
+      if (keyValue === ENTER) {
+        if (state.currentBox === state.boxNum) {
+          if (checkWord()) {
+            console.log('you win');
+            dispatch({ type: ACTIONS.HINTS });
+          }
+          else {
+            dispatch({ type: ACTIONS.HINTS });
+          }
+        }
       }
       else if (keyValue === BACKSPACE || keyValue === "<-") {
         board[state.currentLine][state.currentBox - 1] = '';
@@ -123,6 +133,9 @@ function App() {
         keyValue={keyValue}
         lineNum={lineNum}
         boxNum={boxNum}
+        state={state}
+        dispatch={dispatch}
+        word={word}
       />
       <Keyboard setKeyValue={setKeyValue} />
     </div>

@@ -34,11 +34,6 @@ body {
   justify-content: center;
 }
 
-.green {
-  background-color: green;
-  color: green;
-}
-
 /*#region SETTINGS*/
 
 #displayMessage {
@@ -380,4 +375,19 @@ button {
   text-align: center;
   justify-content: center;
   align-self: center;
+}
+
+.correct {
+  background-color: var(--boxColorCorrect);
+  border-color: var(--boxColorCorrect)
+}
+
+.present {
+  background-color: var(--boxColorPresent);
+  border-color: var(--boxColorPresent)
+}
+
+.wrong {
+  background-color: var(--boxColorWrong);
+  border-color: var(--boxColorWrong)
 }

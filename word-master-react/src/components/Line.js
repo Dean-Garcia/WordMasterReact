@@ -1,7 +1,6 @@
 import Box from './Box'
 
-const Line = ({ board, line, value, boxNum }) => {
-
+const Line = ({ board, line, boxNum, dispatch, state, word }) => {
 
     let boxes = [];
     for (let i = 0; i < boxNum; i++) {
@@ -11,7 +10,10 @@ const Line = ({ board, line, value, boxNum }) => {
             line={line}
             box={i}
             key={i}
-            value={value}
+            dispatch={dispatch}
+            state={state}
+            word={word}
+            boxNum={boxNum}
         />)
     }
 
