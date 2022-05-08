@@ -1,29 +1,60 @@
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 
 const generateWord = () => {
   return 'WRECK';
+}
+
+const ACTIONS = {
+  NEXT_BOX: 'nextBox',
+  PREVIOUS_BOX: 'previousBox',
+  NEXT_LINE: 'nextLine',
+}
+
+const BACKSPACE = 'BACKSPACE';
+const ENTER = 'ENTER';
+
+const reducer = (state, action) => {
+  let newState = state;
+  switch (action.type) {
+    case ACTIONS.NEXT_BOX:
+      if (action.payload) {
+        newState.currentBox = 0;
+        newState.currentLine = state.currentLine + 1;
+        return newState;
+      }
+      else if (state.currentLine > state.lineNum - 1 || state.currentBox === state.boxNum) {
+        return state;
+      }
+      else {
+        newState.currentBox++;
+        return newState;
+      }
+    case ACTIONS.NEXT_LINE:
+      newState.currentBox = 0;
+      newState.currentLine++;
+      return newState;
+    case ACTIONS.PREVIOUS_BOX:
+      return { ...newState, currentBox: state.currentBox - 1 };
+    default:
+      return state;
+  }
 }
 
 function App() {
   const [lineNum, setLineNum] = useState(6);
   const [boxNum, setBoxNum] = useState(5);
 
+  const [state, dispatch] = useReducer(reducer, {
+    currentLine: 0, currentBox: 0, lineNum: 6, boxNum: 5
+  });
+
   const [keyValue, setKeyValue] = useState('');
-
-  const [currentLineValue, setCurrentLineValue] = useState(0);
-  const [currentBoxValue, setCurrentBoxValue] = useState(0);
-
-  const generateWord = () => {
-    return 'WRECK'
-  }
 
   const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   const [board, setBoard] = useState([]);
-
-  const [submitted, setSubmitted] = useState(false);
 
   const [word, setWord] = useState(() => generateWord());
 
@@ -48,11 +79,11 @@ function App() {
 
   const checkWord = () => {
     let currentWord =
-      board[currentLineValue][0] +
-      board[currentLineValue][1] +
-      board[currentLineValue][2] +
-      board[currentLineValue][3] +
-      board[currentLineValue][4];
+      board[state.currentLine][0] +
+      board[state.currentLine][1] +
+      board[state.currentLine][2] +
+      board[state.currentLine][3] +
+      board[state.currentLine][4];
     if (currentWord === word) {
       return true;
     }
@@ -61,49 +92,23 @@ function App() {
     }
   }
 
-  const goToNextBox = () => {
-    console.log('before', currentBoxValue, submitted);
-    if (currentBoxValue === boxNum && submitted === true) {
-      setCurrentBoxValue(0);
-      setCurrentLineValue(currentLineValue => currentLineValue + 1);
-      setSubmitted(false);
-    }
-    else if (currentLineValue > lineNum - 1 || currentBoxValue === boxNum) {
-      console.log('dont change anything');
-    }
-    else {
-      setCurrentBoxValue(currentBoxValue => currentBoxValue + 1);
-    }
-  }
-
-  const goToPreviousBox = () => {
-
-  }
-
   useEffect(() => {
-    if (keyValue !== '') {
-      if (keyValue === "ENTER") {
-        if (currentBoxValue === boxNum) {
-          submitWord();
-          let asubmitted = true;
-          setSubmitted(asubmitted);
-          goToNextBox();
-        }
+    if (keyValue !== '') { // check to ensure no second fires
+      if (keyValue === ENTER && state.currentBox === state.boxNum) {
+        dispatch({ type: ACTIONS.NEXT_BOX, payload: true });
       }
-      else if (keyValue === "<-" || keyValue === "BACKSPACE") {
-        board[currentLineValue][currentBoxValue - 1] = '';
-        setBoard(board);
-        if (currentBoxValue > 0) {
-          setCurrentBoxValue(currentBoxValue => currentBoxValue - 1);
-        }
+      else if (keyValue === BACKSPACE || keyValue === "<-") {
+        board[state.currentLine][state.currentBox - 1] = '';
+        setBoard(board)
+        dispatch({ type: ACTIONS.PREVIOUS_BOX });
       }
       else {
-        board[currentLineValue][currentBoxValue] = keyValue;
+        board[state.currentLine][state.currentBox] = keyValue;
         setBoard(board);
-        goToNextBox();
+        dispatch({ type: ACTIONS.NEXT_BOX });
       }
     }
-    setKeyValue('');
+    setKeyValue(''); // allows for change to repeata letters
   }, [keyValue])
 
   useEffect(() => {
