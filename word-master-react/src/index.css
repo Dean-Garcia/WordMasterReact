@@ -317,6 +317,8 @@ input:checked+.slider:before {
 .key:hover {
   background-color: purple;
   cursor: pointer;
+  animation-name: letterPop;
+  animation-duration: .2s;
 }
 
 /* Animations */

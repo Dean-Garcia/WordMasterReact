@@ -13,7 +13,10 @@ export const ACTIONS = {
   ANIMATION: 'animations',
   HINTS: 'hints',
   WIN: 'win',
-  TEST: 'test'
+  TEST: 'test',
+  CORRECT: 'correct',
+  PRESENT: 'present',
+  WRONG: 'wrong'
 }
 
 const BACKSPACE = 'BACKSPACE';
@@ -52,6 +55,12 @@ export const reducer = (state, { type, payload }) => {
       return { ...newState, animation: true };
     case ACTIONS.WIN:
       return { ...newState, animation: true };
+    case ACTIONS.CORRECT:
+      return { ...newState, correct: state.correct + payload };
+    case ACTIONS.PRESENT:
+      return { ...newState, present: state.present + payload };
+    case ACTIONS.WRONG:
+      return { ...newState, wrong: state.wrong + payload };
     default:
       return state;
   }
@@ -62,7 +71,7 @@ function App() {
   const [boxNum, setBoxNum] = useState(5);
 
   const [state, dispatch] = useReducer(reducer, {
-    currentLine: 0, currentBox: 0, lineNum: 6, boxNum: 5, animation: false
+    currentLine: 0, currentBox: 0, lineNum: 6, boxNum: 5, animation: false, correct: '', present: '', wrong: ''
   });
 
   const [keyValue, setKeyValue] = useState('');
@@ -85,7 +94,6 @@ function App() {
       board[state.currentLine][2] +
       board[state.currentLine][3] +
       board[state.currentLine][4];
-    console.log(currentWord, word);
     if (currentWord === word) {
       return true;
     }
@@ -137,7 +145,7 @@ function App() {
         dispatch={dispatch}
         word={word}
       />
-      <Keyboard setKeyValue={setKeyValue} />
+      <Keyboard setKeyValue={setKeyValue} state={state} />
     </div>
 
   );

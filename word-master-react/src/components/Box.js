@@ -13,13 +13,16 @@ const Box = ({ board, line, box, boxNum, dispatch, state, word }) => {
     const changeClass = () => {
         if (line === state.currentLine && state.animation) {
             if (board[line][box] === word[box]) {
+                dispatch({ type: ACTIONS.CORRECT, payload: board[line][box] })
                 className = 'box flipLetter correct';
             }
             else if (word.includes(board[line][box])) {
+                dispatch({ type: ACTIONS.PRESENT, payload: board[line][box] })
                 className = 'box flipLetter present';
             }
             else {
                 className = 'box flipLetter wrong';
+                dispatch({ type: ACTIONS.WRONG, payload: board[line][box] })
             }
             if (box === boxNum - 1) {
                 dispatch({ type: ACTIONS.NEXT_BOX, payload: true });

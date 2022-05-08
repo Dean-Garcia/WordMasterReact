@@ -1,6 +1,6 @@
 import Key from './Key';
 
-const Keyboard = ({ setKeyValue }) => {
+const Keyboard = ({ setKeyValue, state }) => {
 
   let topRow = 'QWERTYUIOP';;
   let middleRow = 'ASDFGHJKL';
@@ -10,17 +10,17 @@ const Keyboard = ({ setKeyValue }) => {
   let bottomRowKeys = [];
 
   for (let i = 0; i < topRow.length; i++) {
-    topRowKeys.push(<Key setKeyValue={setKeyValue} key={topRow[i]} id={topRow[i]} />);
+    topRowKeys.push(<Key setKeyValue={setKeyValue} key={topRow[i]} id={topRow[i]} state={state} />);
   }
   for (let i = 0; i < middleRow.length; i++) {
-    middleRowKeys.push(<Key setKeyValue={setKeyValue} key={topRow[i]} id={middleRow[i]} />);
+    middleRowKeys.push(<Key setKeyValue={setKeyValue} key={topRow[i]} id={middleRow[i]} state={state} />);
   }
 
-  bottomRowKeys.push(<Key className='bigKey' setKeyValue={setKeyValue} key={'Enter'} id={'Enter'} />);
+  bottomRowKeys.push(<Key className='bigKey' setKeyValue={setKeyValue} key={'Enter'} id={'Enter'} state={state} />);
   for (let i = 0; i < bottomRow.length; i++) {
-    bottomRowKeys.push(<Key setKeyValue={setKeyValue} key={topRow[i]} id={bottomRow[i]} />);
+    bottomRowKeys.push(<Key setKeyValue={setKeyValue} key={topRow[i]} id={bottomRow[i]} state={state} />);
   }
-  bottomRowKeys.push(<Key className='bigKey' setKeyValue={setKeyValue} key={'<-'} id={'<-'} />);
+  bottomRowKeys.push(<Key className='bigKey' setKeyValue={setKeyValue} key={'<-'} id={'<-'} state={state} />);
 
   return (
     <div id='keyboard' className='keyboard'>
