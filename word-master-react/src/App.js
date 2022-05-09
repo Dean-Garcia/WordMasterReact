@@ -1,7 +1,7 @@
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import { useState, useEffect, useReducer } from 'react';
-import { wordList, completeWordList } from './wordList.js';
+import { wordList, default as completeWordList } from './wordList.js';
 
 const generateWord = () => {
   let randomLetterIndex;
@@ -40,7 +40,8 @@ export const ACTIONS = {
   TEST: 'test',
   CORRECT: 'correct',
   PRESENT: 'present',
-  WRONG: 'wrong'
+  WRONG: 'wrong',
+  INVALID: 'invalid'
 }
 
 const BACKSPACE = 'BACKSPACE';
@@ -48,43 +49,40 @@ const ENTER = 'ENTER';
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 export const reducer = (state, { type, payload }) => {
-  let newState = state;
   switch (type) {
     case ACTIONS.TEST:
-      console.log('dispatch test');
       return state;
     case ACTIONS.NEXT_BOX:
       if (payload) {
-        newState.currentBox = 0;
-        newState.currentLine = state.currentLine + 1;
-        newState.animation = false;
-        return newState;
+        return { ...state, currentBox: 0, currentLine: state.currentLine + 1, animation: false }
       }
       else if (state.currentLine > state.lineNum - 1 || state.currentBox === state.boxNum) {
-        console.log('2nd');
         return state;
       }
       else {
-        console.log('3rd');
-        newState.currentBox++;
-        return newState;
+        return { ...state, currentBox: state.currentBox + 1 };
       }
     case ACTIONS.NEXT_LINE:
-      newState.currentBox = 0;
-      newState.currentLine++;
-      return newState;
+      return { ...state, currentBox: 0, currentLine: state.currentLine + 1 }
     case ACTIONS.PREVIOUS_BOX:
-      return { ...newState, currentBox: state.currentBox - 1 };
+      if (state.currentBox === 0) {
+        return state;
+      }
+      return { ...state, currentBox: state.currentBox - 1 };
     case ACTIONS.HINTS:
-      return { ...newState, animation: true };
+      return { ...state, animation: true };
     case ACTIONS.WIN:
-      return { ...newState, animation: true };
+      return { ...state, animation: true };
     case ACTIONS.CORRECT:
-      return { ...newState, correct: state.correct + payload };
+      return { ...state, correct: state.correct + payload };
     case ACTIONS.PRESENT:
-      return { ...newState, present: state.present + payload };
+      return { ...state, present: state.present + payload };
     case ACTIONS.WRONG:
-      return { ...newState, wrong: state.wrong + payload };
+      return { ...state, wrong: state.wrong + payload };
+    case ACTIONS.INVALID:
+      return { ...state, isInvalid: true }
+    case ACTIONS.RESET:
+      return { ...state, isInvalid: false }
     default:
       return state;
   }
@@ -95,7 +93,7 @@ function App() {
   const [boxNum, setBoxNum] = useState(5);
 
   const [state, dispatch] = useReducer(reducer, {
-    currentLine: 0, currentBox: 0, lineNum: 6, boxNum: 5, animation: false, correct: '', present: '', wrong: ''
+    currentLine: 0, currentBox: 0, lineNum: 6, boxNum: 5, animation: false, correct: '', present: '', wrong: '', isInvalid: false
   });
 
   const [keyValue, setKeyValue] = useState('');
@@ -111,13 +109,7 @@ function App() {
     }
   }
 
-  const checkWord = () => {
-    let currentWord =
-      board[state.currentLine][0] +
-      board[state.currentLine][1] +
-      board[state.currentLine][2] +
-      board[state.currentLine][3] +
-      board[state.currentLine][4];
+  const checkForWin = (currentWord) => {
     if (currentWord === word) {
       return true;
     }
@@ -126,16 +118,33 @@ function App() {
     }
   }
 
+  const checkIfValid = (currentWord) => {
+    let firstLetter = currentWord[0];
+    let letterIndex = ALPHABET.indexOf(firstLetter);
+    if (completeWordList[letterIndex].includes(currentWord)) {
+      return true;
+    }
+    return false;
+  }
+
   useEffect(() => {
     if (keyValue !== '') { // check to ensure no second fires
       if (keyValue === ENTER) {
         if (state.currentBox === state.boxNum) {
-          if (checkWord()) {
+          let currentWord = board[state.currentLine][0] +
+            board[state.currentLine][1] +
+            board[state.currentLine][2] +
+            board[state.currentLine][3] +
+            board[state.currentLine][4];
+          if (checkForWin(currentWord)) {
             console.log('you win');
             dispatch({ type: ACTIONS.HINTS });
           }
-          else {
+          else if (checkIfValid(currentWord)) {
             dispatch({ type: ACTIONS.HINTS });
+          }
+          else {
+            dispatch({ type: ACTIONS.INVALID });
           }
         }
       }
