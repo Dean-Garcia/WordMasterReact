@@ -1,9 +1,33 @@
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import { useState, useEffect, useReducer } from 'react';
+import { wordList, completeWordList } from './wordList.js';
 
 const generateWord = () => {
-  return 'WRECK';
+  let randomLetterIndex;
+  let randomWordIndex;
+  let generatedWord;
+  try {
+    randomLetterIndex = getRandomNumber(0, 24);
+    let listLength = wordList[randomLetterIndex].length;
+    randomWordIndex = getRandomNumber(0, listLength);
+    console.log(randomLetterIndex, randomWordIndex);
+    generatedWord = wordList[randomLetterIndex][randomWordIndex].toUpperCase();
+    console.log(generatedWord);
+    return generatedWord;
+
+  }
+  catch (e) {
+    console.log('there was an error?', randomLetterIndex, randomWordIndex, generatedWord);
+    return generateWord();
+  }
+
+}
+
+function getRandomNumber(min, max) { //taken from internet for RNG
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
 export const ACTIONS = {
