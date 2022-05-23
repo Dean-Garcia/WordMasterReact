@@ -7,8 +7,6 @@ const Key = ({ id, className, state, setKeyValue }) => {
 
   const [keyClass, setKeyClass] = useState(className);
 
-
-
   const handleClick = (e) => {
     setKeyValue(e.target.id.toUpperCase());
   }
@@ -26,9 +24,19 @@ const Key = ({ id, className, state, setKeyValue }) => {
     setKeyClass(className);
   }
 
+  const resetClass = () => {
+    setKeyClass("key");
+  }
+
   useUpdateEffect(() => {
     changeClass();
   }, [state.animation])
+
+  useUpdateEffect(() => {
+    if (!keyClass.includes('bigKey')) {
+      resetClass();
+    }
+  }, [state.reset])
 
   return (
     <div id={id} tabIndex="0" className={keyClass} onClick={handleClick}>
