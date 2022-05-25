@@ -1,6 +1,7 @@
 import React from 'react';
 import { ACTIONS, reducer } from '../App.js';
 
+
 const Button = ({ name, dispatch, state, close }) => {
 
     let buttonText = name;
