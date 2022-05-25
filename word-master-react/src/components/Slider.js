@@ -1,9 +1,22 @@
 import React from 'react'
+import { ACTIONS } from '../App';
 
 const Slider = ({ name, settingsDispatch }) => {
 
     const handleClick = () => {
-        console.log('hello', name);
+        let actionType = '';
+        switch (name) { // Toggle each setting
+            case "Endurance Mode":
+                actionType = ACTIONS.TOGGLE_ENDURANCE_MODE;
+                break;
+            case "Hard Mode":
+                actionType = ACTIONS.TOGGLE_HARDMODE;
+                break;
+            case "Color Blind Mode":
+                actionType = ACTIONS.TOGGLE_COLOR_BLIND_MODE;
+                break;
+        }
+        settingsDispatch({ type: actionType });
     }
 
     return (
