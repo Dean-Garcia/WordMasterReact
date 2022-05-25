@@ -6,10 +6,16 @@ import { ACTIONS } from '../App';
 const Line = ({ board, line, boxNum, dispatch, state, word }) => {
 
     const [lineClass, setLineClass] = useState('lineContainer');
-
+    let addMore;
     let boxes = [];
+    if (line.length < boxNum) {
+        addMore = true;
+    }
+
     for (let i = 0; i < boxNum; i++) {
-        board[line].push('');
+        if (addMore) {
+            board[line].push('');
+        }
         boxes.push(<Box
             board={board}
             line={line}
@@ -24,7 +30,6 @@ const Line = ({ board, line, boxNum, dispatch, state, word }) => {
 
     useUpdateEffect(() => {
         if (line === state.currentLine && state.isInvalid) {
-            console.log('invalid word');
             let className = 'lineContainer shakeWord';
             setLineClass(className);
             dispatch({ type: ACTIONS.RESET });
