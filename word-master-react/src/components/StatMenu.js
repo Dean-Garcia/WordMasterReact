@@ -25,6 +25,7 @@ const StatMenu = ({ state, settingsState, settingsDispatch, dispatch }) => {
 
     return (
         <div className={statsClass}>
+            Not Currently Implemented
             <div id='graphContainer'>
                 <canvas id="guessChart"></canvas>
             </div>
