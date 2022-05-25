@@ -2,8 +2,16 @@ import Line from './Line';
 
 const Board = ({ board, lineNum, boxNum, dispatch, state, word }) => {
     let lines = [];
+
+    let addMore;
+    if (board.length < lineNum) {
+        addMore = true;
+    }
+
     for (let i = 0; i < lineNum; i++) {
-        board.push([]);
+        if (addMore) {
+            board.push([]);
+        }
         lines.push(<Line
             board={board}
             key={i}
@@ -14,6 +22,7 @@ const Board = ({ board, lineNum, boxNum, dispatch, state, word }) => {
             word={word}
         />)
     }
+
 
     return (
         <div className='boardContainer'>
