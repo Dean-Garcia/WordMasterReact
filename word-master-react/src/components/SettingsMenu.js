@@ -5,19 +5,17 @@ import { ACTIONS, settingsReducer, reducer } from '../App.js';
 import Button from './Button.js';
 import Slider from './Slider.js';
 
-
-
 const SettingsMenu = ({ state, settingsState, settingsDispatch, dispatch }) => {
 
     const [settingsClass, setSettingsClass] = useState('menu');
 
-    useUpdateEffect(() => {
+    useUpdateEffect(() => { // toggles isSettingsVisible
         if (state.menuName == 'Settings') {
             settingsDispatch({ type: ACTIONS.TOGGLE_MENU, payload: state.menuName });
         }
     }, [state.toggleSetting])
 
-    useUpdateEffect(() => {
+    useUpdateEffect(() => { // toggles view of menu after isSettingsVisible is toggled
         if (settingsState.isSettingsVisible) {
             setSettingsClass('menu show');
         }
@@ -29,8 +27,8 @@ const SettingsMenu = ({ state, settingsState, settingsDispatch, dispatch }) => {
     return (
         <div className={settingsClass}>
             <h3>Settings</h3>
-            <Slider name="Endurance mode" settingsDispatch={settingsDispatch} />
-            <Slider name="Hard mode" settingsDispatch={settingsDispatch} />
+            <Slider name="Endurance Mode" settingsDispatch={settingsDispatch} />
+            <Slider name="Hard Mode" settingsDispatch={settingsDispatch} />
             <Slider name="Color Blind Mode" settingsDispatch={settingsDispatch} />
             <label>Theme <select name="Theme" id="theme">
                 <option value="Dark">Dark (Default)</option>
