@@ -7,6 +7,15 @@ const SeedMenu = ({ state, settingsState, settingsDispatch, dispatch }) => {
 
     const [seedClass, setSeedClass] = useState('menu');
 
+
+
+    const handleSubmit = (e) => {
+        let inputSeed = e.target[0].value;
+        e.preventDefault();
+        settingsDispatch({ type: ACTIONS.SET_INPUT_SEED, payload: inputSeed })
+        settingsDispatch({ type: ACTIONS.TOGGLE_MENU, payload: state.menuName });
+    }
+
     useUpdateEffect(() => {
         if (state.menuName == 'Seed') {
             settingsDispatch({ type: ACTIONS.TOGGLE_MENU, payload: state.menuName });
@@ -24,9 +33,9 @@ const SeedMenu = ({ state, settingsState, settingsDispatch, dispatch }) => {
 
     return (
         <div className={seedClass}>
-            <form id='seedForm'>
-                <div id='currentSeed'>Current Seed:
-                    <div id='currentSeedMessage'></div>
+            <form onSubmit={handleSubmit}>
+                <div>Current Seed:<br />
+                    {state.seed}
                 </div>
                 <label>Enter Seed <input id='seedInput' maxLength='8' minLength='8' type='number'></input></label>
             </form>
