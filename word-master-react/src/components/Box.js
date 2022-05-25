@@ -14,6 +14,9 @@ const Box = ({ board, line, box, boxNum, dispatch, state, word }) => {
         if (line === state.currentLine && state.animation) {
             if (board[line][box] === word[box]) {
                 dispatch({ type: ACTIONS.CORRECT, payload: board[line][box] })
+                let newCorrectArray = state.correctArray;
+                newCorrectArray[box] = board[line][box];
+                dispatch({ type: ACTIONS.SET_CORRECT_ARRAY, payload: newCorrectArray })
                 className = 'box flipLetter correct';
             }
             else if (word.includes(board[line][box])) {
