@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/WordMasterReact/static/css/main.019f0b5a.css",
+    "main.js": "/WordMasterReact/static/js/main.27c705d8.js",
+    "index.html": "/WordMasterReact/index.html",
+    "main.019f0b5a.css.map": "/WordMasterReact/static/css/main.019f0b5a.css.map",
+    "main.27c705d8.js.map": "/WordMasterReact/static/js/main.27c705d8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.019f0b5a.css",
+    "static/js/main.27c705d8.js"
+  ]
+}
