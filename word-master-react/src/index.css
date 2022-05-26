@@ -36,7 +36,7 @@ body {
 
 /*#region SETTINGS*/
 
-#displayMessage {
+.displayMessage {
   display: none;
   z-index: 5;
   position: absolute;
@@ -262,7 +262,7 @@ input:checked+.slider:before {
   gap: 5px;
 }
 
-#displayMessage.show {
+.displayMessage.show {
   display: flex;
 }
 
