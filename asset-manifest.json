@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/WordMasterReact/static/css/main.019f0b5a.css",
+    "main.css": "/WordMasterReact/static/css/main.cf6d6066.css",
     "main.js": "/WordMasterReact/static/js/main.27c705d8.js",
     "index.html": "/WordMasterReact/index.html",
-    "main.019f0b5a.css.map": "/WordMasterReact/static/css/main.019f0b5a.css.map",
+    "main.cf6d6066.css.map": "/WordMasterReact/static/css/main.cf6d6066.css.map",
     "main.27c705d8.js.map": "/WordMasterReact/static/js/main.27c705d8.js.map"
   },
   "entrypoints": [
-    "static/css/main.019f0b5a.css",
+    "static/css/main.cf6d6066.css",
     "static/js/main.27c705d8.js"
   ]
 }
