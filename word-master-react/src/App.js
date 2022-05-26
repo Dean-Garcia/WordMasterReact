@@ -407,11 +407,22 @@ function App() {
   }, [state.reset])
 
   useUpdateEffect(() => {
-    displayMessage('Not Currently Implemented', 1000);
+    if (settingsState.hardmode) {
+      displayMessage('Hard Mode Enabled', 1000);
+    }
+    else {
+      displayMessage('Hard Mode Disabled', 1000);
+
+    }
   }, [settingsState.hardmode])
 
   useUpdateEffect(() => {
-    displayMessage('Endurance Mode Enabled', 1000);
+    if (settingsState.enduranceMode) {
+      displayMessage('Endurance Mode Enabled', 1000);
+    }
+    else {
+      displayMessage('Endurance Mode Disabled', 1000);
+    }
   }, [settingsState.enduranceMode])
 
   useUpdateEffect(() => {
